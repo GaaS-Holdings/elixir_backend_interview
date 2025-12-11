@@ -1,18 +1,29 @@
-# App
+# Start mock server in LiveBook
+
+Start the mock server
+
+1. Open `playground/mock-server.livemd`. 
+2. Evaluate all cells (press Cmd + Shift + Enter) to ensure it works.
+3. In the sidebar, click App Settings → Launch Preview to start the mock API server.
+
+Verify the mock server is running
+
+1. Open playground/api-playground.livemd.
+2. Evaluate all cells to confirm the mock server is working.
+
+# Phoenix
 
 To start your Phoenix server:
 
-* Run `mix setup` to install and setup dependencies
-* Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+```
+mix setup
+mix phx.server
+```
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+Example: trigger /user_feed endpoint with cURL
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-* Official website: https://www.phoenixframework.org/
-* Guides: https://hexdocs.pm/phoenix/overview.html
-* Docs: https://hexdocs.pm/phoenix
-* Forum: https://elixirforum.com/c/phoenix-forum
-* Source: https://github.com/phoenixframework/phoenix
+```
+curl --location 'http://localhost:4000/api/instagram/user_feed' \
+--header 'Content-Type: application/json' \
+--data '{ "username": "crocs" }'
+```
