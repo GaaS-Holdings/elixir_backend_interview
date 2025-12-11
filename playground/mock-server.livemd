@@ -1,0 +1,189 @@
+<!-- livebook:{"app_settings":{"access_type":"public","slug":"mock-api"}} -->
+
+# Mock API for Backend Interview
+
+```elixir
+Mix.install([
+  {:kino, "~> 0.18.0"},
+  {:plug, "~> 1.19"}
+])
+```
+
+## Mock Server
+
+```elixir
+defmodule Fixtures do
+  def user_feed("crocs", _cursor = nil) do
+    json = %{
+      "items" => [
+        %{
+          "pk" => 3_783_929_427_378_941_615,
+          "caption" => "you: MiSsEd OpPoRtUniTy FoR hAnDsOmE sQuIdWaRd\nus:",
+          "shortcode" => "DSDN8QeEa6v",
+          "media_type" => "reel",
+          "video_url" =>
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/9/b4xINRf5Ni2bCXwUkQCpjFljimziqRh85/IG_reel_crocs_2025-12-09.mp4",
+          "poster_url" =>
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/9/b4xINRf5Ni2bCXwUkQCpjFljimziqRh85/IG_reel_crocs_2025-12-09_poster.jpg",
+          "mentions" => ["nickelodeon"],
+          "taken_at" => 1_765_299_644,
+          "author" => %{
+            "full_name" => "Crocs Shoes",
+            "id" => "199722566",
+            "username" => "crocs"
+          }
+        },
+        %{
+          "pk" => 3_783_205_366_231_282_217,
+          "caption" => "maturing is realizing you're more Squidward than SpongeBob.",
+          "shortcode" => "DSApTx-kTIp",
+          "media_type" => "carousel",
+          "carousel_urls" => [
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/8/GzEhRLUGqclwT29IKNhvvF1Xcg8UmXFqp/IG_carousel_0_crocs_2025-12-08.jpg",
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/8/GzEhRLUGqclwT29IKNhvvF1Xcg8UmXFqp/IG_carousel_1_crocs_2025-12-08.jpg",
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/8/GzEhRLUGqclwT29IKNhvvF1Xcg8UmXFqp/IG_carousel_2_crocs_2025-12-08.jpg",
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/8/GzEhRLUGqclwT29IKNhvvF1Xcg8UmXFqp/IG_carousel_3_crocs_2025-12-08.jpg",
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/8/GzEhRLUGqclwT29IKNhvvF1Xcg8UmXFqp/IG_carousel_4_crocs_2025-12-08.jpg"
+          ],
+          "mentions" => ["nickelodeon", "spongebob"],
+          "taken_at" => 1_765_213_245,
+          "author" => %{
+            "full_name" => "Crocs Shoes",
+            "id" => "199722566",
+            "username" => "crocs"
+          }
+        }
+      ],
+      "next_cursor" => "2"
+    }
+
+    {:ok, json}
+  end
+
+  def user_feed("crocs", _cursor = "2") do
+    json = %{
+      "items" => [
+        %{
+          "pk" => 3_780_294_121_744_335_139,
+          "caption" =>
+            "\"this is the worst day of my life.\" - Squidward (and us) #CrocsPartner #crocssale",
+          "shortcode" => "DR2TXmREYEj",
+          "media_type" => "post",
+          "image_url" =>
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/4/aMGh2ZF8buKjsEoTQKcVKhOvidgSwji9r/IG_post_crocs_2025-12-04.jpg",
+          "mentions" => ["nickelodeon", "spongebob"],
+          "taken_at" => 1_764_866_198,
+          "author" => %{
+            "full_name" => "Crocs Shoes",
+            "id" => "199722566",
+            "username" => "crocs"
+          }
+        }
+      ]
+    }
+
+    {:ok, json}
+  end
+
+  def user_feed("crocs", _cursor) do
+    {:ok, %{}}
+  end
+  
+  def user_feed("neymarjr", _cursor = nil) do
+    json = %{
+      "items" => [
+        %{
+          "pk" => 3_767_537_624_220_035_822,
+          "caption" =>
+            "Ele é O nome da resenha, não tem jeito! Nosso embaixador Neymar Jr. tá on com seus parças e chega com uma linha de snacks Canção para deixar a sua
+  resenha ainda mais gostosa. Vai ser difícil sobrar um para o after. 😉🧡\n\nConta pra gente usando a hashtag #MinhaResenhaCanção: Qual é a sua resenha
+  preferida?\n\n#CançãoAlimentos  #CadaMomentoUmaHistória",
+          "video_url" =>
+            "https://ik.imagekit.io/archivecdn/facebook/2025/11/17/OQahLnSGwUzzF8atd2FyXf9mU2OTkBIlB/IG_reel_cancaoalimentos_2025-11-17.mp4",
+          "poster_url" =>
+            "https://ik.imagekit.io/archivecdn/facebook/2025/11/17/OQahLnSGwUzzF8atd2FyXf9mU2OTkBIlB/IG_reel_cancaoalimentos_2025-11-17_poster.jpg",
+          "shortcode" => "DRI-4IJjeru",
+          "media_type" => "reel",
+          "mentions" => ["neymarjr", "rafatortola", "neymarjrsiteoficial", "nrsports"],
+          "taken_at" => 1_763_345_515,
+          "author" => %{
+            "full_name" => "Canção Alimentos",
+            "id" => "3592384122",
+            "username" => "cancaoalimentos"
+          }
+        },
+        %{
+          "pk" => 3_783_485_208_927_313_668,
+          "caption" => "🤍🖤🙏",
+          "shortcode" => "DSBo8BzDp8E",
+          "media_type" => "post",
+          "image_url" =>
+            "https://ik.imagekit.io/archivecdn/facebook/2025/12/9/gG9hoMil7tvoiW8Ujgtpef1bh2XhdeUPY/IG_post_neymarjr_2025-12-09.jpg",
+          "mentions" => [],
+          "taken_at" => 1_765_246_605,
+          "author" => %{
+            "full_name" => "Neymar Jr",
+            "id" => "26669533",
+            "username" => "neymarjr"
+          }
+        }
+      ]
+    }
+
+    {:ok, json}
+  end
+  
+  def user_feed("neymarjr", _cursor) do
+    {:ok, %{}}
+  end
+
+  def user_feed(_username, _cursor) do
+    {:error, :not_found}
+  end
+end
+```
+
+```elixir
+defmodule ApiRouter do
+  use Plug.Router
+
+  plug(:match)
+  plug(Plug.Parsers, parsers: [:json], json_decoder: JSON)
+  plug(:dispatch)
+
+  get "/user_feed/:username" do
+    username = conn.path_params["username"]
+    cursor = conn.query_params["cursor"]
+
+    case Fixtures.user_feed(username, cursor) do
+      {:ok, json} ->
+        conn
+        |> put_resp_content_type("application/json")
+        |> send_resp(200, JSON.encode!(json))
+
+      {:error, :not_found} ->
+        conn
+        |> put_resp_content_type("application/json")
+        |> send_resp(404, ~s({"message": "user not found"}))
+    end
+  end
+
+  post "/publish" do
+    conn.body_params
+
+    dbg(conn.body_params)
+
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(200, JSON.encode!(conn.body_params))
+  end
+
+  match _ do
+    conn
+    |> put_resp_content_type("application/json")
+    |> send_resp(404, ~s({"message": "route not found"}))
+  end
+end
+
+Kino.Proxy.listen(ApiRouter)
+```

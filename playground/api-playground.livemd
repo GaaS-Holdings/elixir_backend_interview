@@ -1,0 +1,28 @@
+# API Playground
+
+```elixir
+Mix.install([
+  {:req, "~> 0.5.16"}
+])
+```
+
+## Explore API
+
+Get user feed for crocs https://www.instagram.com/crocs
+
+```elixir
+Req.get!("http://localhost:32123/proxy/apps/mock-api/user_feed/crocs")
+```
+
+Paginate by passing cursor as a parameter
+
+```elixir
+Req.get!("http://localhost:32123/proxy/apps/mock-api/user_feed/crocs", params: %{cursor: "2"})
+
+```
+
+Publish a result webhook to the `/publish` endpoint.
+
+```elixir
+Req.post!("http://localhost:32123/proxy/apps/mock-api/publish", json: %{"hello" => "world"})
+```
