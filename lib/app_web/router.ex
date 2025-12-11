@@ -20,10 +20,11 @@ defmodule AppWeb.Router do
     get "/", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", AppWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/instagram", AppWeb do
+    pipe_through :api
+
+    post "/user_feed", InstagramController, :user_feed
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:app, :dev_routes) do
